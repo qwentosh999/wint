@@ -1,5 +1,6 @@
 import os
 
+from app.db_handler.db_class import create_connection
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
@@ -16,3 +17,21 @@ admins = [int(admin_id) for admin_id in ADMINS.split(',')]
 bot = Bot(token=BOT_TOKEN, 
           default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher(storage=MemoryStorage())
+
+def create_tables():
+    conn = create_connection()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+CREATE TABLE IF NOT EXISTS users
+(
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER,
+    full_name TEXT,
+    req_date TEXT
+)
+''')
+    conn.commit()
+    conn.close()
+
+create_tables()

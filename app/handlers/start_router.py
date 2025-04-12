@@ -4,16 +4,16 @@ from aiogram.types import Message
 
 from app.keywords.all_kb import main_kb, create_spec_kb
 from app.utils.utils import ABOUT_ME
-
+from app.db_handler.db_class import create_user
 
 start_router = Router()
 
 
 @start_router.message(CommandStart())
 async def cmd_start(message: Message):
-    await message.answer('Запуск сообщения по' + \
-        ' команде /start используя фильтр ' + \
-            'CommandStart()',
+    user = message.from_user
+    create_user(user.id, user.username)
+    await message.answer('Запуск сообщения по команде /start используя фильтр CommandStart()',
             reply_markup=main_kb(message.from_user.id))
 
 

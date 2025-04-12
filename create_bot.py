@@ -28,7 +28,9 @@ CREATE TABLE IF NOT EXISTS users
     id INTEGER PRIMARY KEY,
     user_id INTEGER,
     full_name TEXT,
-    req_date TEXT
+    balance FLOAT,
+    create_at DATETIME,
+    update_at DATETIME                             
 )
 ''')
     conn.commit()

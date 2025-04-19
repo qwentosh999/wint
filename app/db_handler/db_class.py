@@ -11,15 +11,12 @@ def create_connection():
 
 
 def create_user(user_id: int,
-                full_name: str):
+                full_name: str=None):
     
     conn = create_connection()
     cursor = conn.cursor()
 
-    find_user = """ SELECT * FROM users WHERE user_id = ?"""
-
-    cursor.execute(find_user, (user_id,))
-    user = cursor.fetchone()
+    user = get_user(user_id)
 
     if user:
         print("Пользователь уже существует")
@@ -37,4 +34,16 @@ full_name,balance,create_at,update_at)
     conn.commit()
     return True
 
-create_user(1,"p1n0k10")
+def get_user(user_id: int) -> object:
+    conn = create_connection()
+    cursor = conn.cursor()
+
+    find_user = """ SELECT * FROM users WHERE user_id = ?"""
+
+    cursor.execute(find_user,(user_id,))
+    user = cursor.fetchall()
+    print(user)
+    conn.commit()
+    return user
+if __name__ == "__main__":
+    create_user(1,"p1n0k10")

@@ -1,5 +1,4 @@
-
-FROM python:3.11-alpine
+FROM python:3.13-alpine
 
 WORKDIR /app
 
@@ -9,4 +8,4 @@ RUN pip install --no-cache-dir -r req.txt
 
 COPY . .
 
-CMD ["python3","main.py"]
+CMD ["python3", "main.py"]

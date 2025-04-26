@@ -13,7 +13,9 @@ start_router = Router()
 async def cmd_start(message: Message):
     user = message.from_user
     create_user(user.id, user.username)
-    await message.answer('Запуск сообщения по команде /start используя фильтр CommandStart()',
+    await message.answer('Запуск сообщения по ' \
+    'команде /start используя фильтр' + \
+        'CommandStart() upd test',
             reply_markup=main_kb(message.from_user.id))
 
 
